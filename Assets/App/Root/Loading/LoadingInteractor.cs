@@ -11,7 +11,7 @@ public class LoadingInteractor {
     }
 
     public void Activate() {
-        
+        ui.SetLoadingText();
     }
 
 }

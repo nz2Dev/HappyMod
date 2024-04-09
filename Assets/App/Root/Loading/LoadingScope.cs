@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scopes/Loading")]
 public class LoadingScope : ScriptableObject {
 
-    [SerializeField] private RectTransform elementsPrefab;
+    [SerializeField] private LoadingTree treePrefab;
     
     public LoadingRouter Router(RectTransform placementSlot) {
         return new LoadingRouter(
             placementSlot,
-            new LoadingUI(elementsPrefab),
+            new LoadingUI(treePrefab),
             new LoadingInteractor(),
             this
         );

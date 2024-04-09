@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class LoadingUI {
     
-    private readonly RectTransform elementsPrefab;
+    private readonly LoadingTree treePrefab;
     
-    private RectTransform rootTransform;
+    private LoadingTree tree;
 
-    public LoadingUI(RectTransform elementsPrefab) {
-        this.elementsPrefab = elementsPrefab;
+    public LoadingUI(LoadingTree treePrefab) {
+        this.treePrefab = treePrefab;
     }
 
     public void SpawnUIElements(RectTransform placementSlot) {
-        rootTransform = (RectTransform) GameObject.Instantiate(elementsPrefab.gameObject, placementSlot).transform;
+        tree = Object.Instantiate(treePrefab.gameObject, placementSlot).GetComponent<LoadingTree>();
+    }
+
+    public void SetLoadingText() {
+        tree.title.text = "Loading text!";
     }
 
 }
