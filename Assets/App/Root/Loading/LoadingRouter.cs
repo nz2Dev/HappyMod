@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LoadingRouter {
@@ -10,6 +11,8 @@ public class LoadingRouter {
 
     private MonoBehaviourService monoService;
 
+    public event Action OnLoaded;
+
     public LoadingRouter(RectTransform placementSlot, MonoBehaviourService monoServicePrefab, LoadingUI ui, LoadingInteractor interactor, LoadingScope scope) {
         this.placementSlot = placementSlot;
         this.monoServicePrefab = monoServicePrefab;
@@ -19,15 +22,19 @@ public class LoadingRouter {
     }
 
     public void OnAttached() {
-        monoService = Object.Instantiate(monoServicePrefab.gameObject).GetComponent<MonoBehaviourService>();
+        monoService = GameObject.Instantiate(monoServicePrefab.gameObject).GetComponent<MonoBehaviourService>();
         ui.SpawnUIElements(placementSlot);
         interactor.SetComponents(ui, this, monoService);
         interactor.Activate();
     }
 
     public void OnDetached() {
-        Object.Destroy(monoService);
+        GameObject.Destroy(monoService);
         ui.DeleteUIElements();
+    }
+
+    public void DispatchOnLoaded() {
+        OnLoaded?.Invoke();
     }
 
 }

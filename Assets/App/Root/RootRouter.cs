@@ -15,7 +15,13 @@ public class RootRouter {
 
     public void OnAttached() {
         loadingRouter = scope.LoadingScope().Router((RectTransform) placementCanvas.transform);
+        loadingRouter.OnLoaded += LoadingRouterOnLoaded;
         loadingRouter.OnAttached();
     }
 
+    private void LoadingRouterOnLoaded() {
+        loadingRouter.OnDetached();
+        loadingRouter = null;
+    }
+    
 }

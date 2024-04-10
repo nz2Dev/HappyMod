@@ -35,6 +35,7 @@ public class LoadingInteractor {
 
             if (savingTask.IsCompletedSuccessfully) {
                 ui.SetLoadingProgress(1f);
+                router.DispatchOnLoaded();
             } else {
                 ui.SetLoadingProgress(0f);
             }
