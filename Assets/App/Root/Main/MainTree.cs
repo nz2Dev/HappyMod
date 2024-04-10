@@ -7,5 +7,6 @@ public class MainTree : MonoBehaviour {
     public TabBarElement placeholder1Tab;
     public TabBarElement placeholder2Tab;
     public TabBarElement placeholder3Tab;
+    public RectTransform contentContainer;
 
 }

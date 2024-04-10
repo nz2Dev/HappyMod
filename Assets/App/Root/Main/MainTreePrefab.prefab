@@ -395,6 +395,7 @@ MonoBehaviour:
   placeholder1Tab: {fileID: 4032359505861706365}
   placeholder2Tab: {fileID: 7878586837542921292}
   placeholder3Tab: {fileID: 1836395027083967996}
+  contentContainer: {fileID: 4874760551485868177}
 --- !u!1001 &1315707412330431882
 PrefabInstance:
   m_ObjectHideFlags: 0

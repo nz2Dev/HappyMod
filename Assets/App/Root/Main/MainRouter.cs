@@ -9,6 +9,9 @@ public class MainRouter {
     private readonly MainInteractor interactor;
     private readonly MainScope scope;
 
+    private ModsRouter modsRouter;
+    private GameObject placeholderTree;
+
     public MainRouter(RectTransform placementSlot, MainUI ui, MainInteractor interactor, MainScope scope) {
         this.placementSlot = placementSlot;
         this.ui = ui;
@@ -23,11 +26,25 @@ public class MainRouter {
     }
 
     public void AttachMods() {
-        Debug.Log("attach mods is called");
+        if (placeholderTree != null) {
+            Object.Destroy(placeholderTree);
+        }
+
+        if (modsRouter == null) {
+            modsRouter = scope.ModsScope().Router(ui.ContentContainer);
+            modsRouter.OnAttached();
+        }
     }
 
     public void AttachPlaceholder() {
-        Debug.Log("attach placeholder is called");
+        if (modsRouter != null) {
+            modsRouter.OnDetached();
+            modsRouter = null;
+        }
+
+        if (placeholderTree == null) {
+            placeholderTree = GameObject.Instantiate(scope.PlaceholderTreePrfab(), ui.ContentContainer);
+        }
     }
     
 }

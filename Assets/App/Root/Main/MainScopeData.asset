@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1d2069e39b84e0e95b523d20ee355d, type: 3}
   m_Name: MainScopeData
   m_EditorClassIdentifier: 
+  modsScopeData: {fileID: 11400000, guid: 9dbef09040df049b2a918e2c73d09cd1, type: 2}
+  placeholderTreePrefab: {fileID: 7936064869525302120, guid: 1b0243167d11e40ac9d917ebf7cd0e65, type: 3}
   screenTreePrefab: {fileID: 9210381050572140539, guid: 4b21fef968ad242e7a158badcb939353, type: 3}

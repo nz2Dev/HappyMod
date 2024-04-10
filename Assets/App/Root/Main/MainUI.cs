@@ -14,6 +14,8 @@ public class MainUI {
 
     private MainTree tree;
 
+    public RectTransform ContentContainer => tree.contentContainer;
+
     public event Action<Tab> OnTabClicked;
 
     public MainUI(MainTree treePrefab) {
