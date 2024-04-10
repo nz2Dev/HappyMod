@@ -20,4 +20,8 @@ public class LoadingUI {
         tree.progressBarImage.fillAmount = progress;
     }
 
+    public void DeleteUIElements() {
+        Object.Destroy(tree.gameObject);
+    }
+    
 }

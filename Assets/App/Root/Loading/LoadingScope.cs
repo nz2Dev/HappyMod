@@ -6,10 +6,12 @@ using UnityEngine;
 public class LoadingScope : ScriptableObject {
 
     [SerializeField] private LoadingTree treePrefab;
-    
+    [SerializeField] private MonoBehaviourService servicePrefab;
+
     public LoadingRouter Router(RectTransform placementSlot) {
         return new LoadingRouter(
             placementSlot,
+            servicePrefab,
             new LoadingUI(treePrefab),
             new LoadingInteractor(),
             this

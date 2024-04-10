@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: LoadingScopeData
   m_EditorClassIdentifier: 
   treePrefab: {fileID: 5075333225277573921, guid: 0232cec7b7e1443bcb45a5009d2610a2, type: 3}
+  servicePrefab: {fileID: 5964210332046190258, guid: dd4dcf00703a94d57b156d5614ec8428, type: 3}

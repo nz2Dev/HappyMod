@@ -129,8 +129,11 @@ namespace Plugins.Dropbox
         
         public static async Task DownloadAndSaveFile(string relativePathToFile)
         {
+            string filePath = Application.persistentDataPath + "/" + relativePathToFile;
+
             // Create a download request
             UnityWebRequest downloadRequest = GetRequestForFileDownload(relativePathToFile);
+            downloadRequest.downloadHandler = new DownloadHandlerFile(filePath);
 
             // Send the download request
             var operation = downloadRequest.SendWebRequest();
@@ -146,8 +149,6 @@ namespace Plugins.Dropbox
             else
             {
                 // Save the downloaded file to the persistent data path
-                string filePath = Application.persistentDataPath + "/" + relativePathToFile;
-                System.IO.File.WriteAllBytes(filePath, downloadRequest.downloadHandler.data);
                 Debug.Log("File saved to: " + filePath);
             }
         }

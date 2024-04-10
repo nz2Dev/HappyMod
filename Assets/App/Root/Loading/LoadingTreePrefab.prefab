@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 3171219398628303981}
+  progressBarImage: {fileID: 7687540078100695239}
 --- !u!222 &2147895994618569215
 CanvasRenderer:
   m_ObjectHideFlags: 0
