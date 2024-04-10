@@ -16,8 +16,8 @@ public class LoadingUI {
         tree = Object.Instantiate(treePrefab.gameObject, placementSlot).GetComponent<LoadingTree>();
     }
 
-    public void SetLoadingText() {
-        tree.title.text = "Loading text!";
+    public void SetLoadingProgress(float progress) {
+        tree.progressBarImage.fillAmount = progress;
     }
 
 }
