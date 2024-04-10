@@ -21,5 +21,13 @@ public class MainRouter {
         interactor.SetComponents(ui, this);
         interactor.Activate();
     }
+
+    public void AttachMods() {
+        Debug.Log("attach mods is called");
+    }
+
+    public void AttachPlaceholder() {
+        Debug.Log("attach placeholder is called");
+    }
     
 }

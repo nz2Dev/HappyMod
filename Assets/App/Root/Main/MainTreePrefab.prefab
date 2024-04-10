@@ -390,6 +390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8249af92741c4c5ebb71227275b28aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabBar: {fileID: 9172967284998713298}
+  modsTab: {fileID: 7433616465200498031}
+  placeholder1Tab: {fileID: 4032359505861706365}
+  placeholder2Tab: {fileID: 7878586837542921292}
+  placeholder3Tab: {fileID: 1836395027083967996}
 --- !u!1001 &1315707412330431882
 PrefabInstance:
   m_ObjectHideFlags: 0
