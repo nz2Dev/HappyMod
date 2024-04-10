@@ -7,6 +7,7 @@ public class RootRouter {
     private readonly RootScope scope;
 
     private LoadingRouter loadingRouter;
+    private MainRouter mainRouter;
 
     public RootRouter(Canvas canvas, RootScope scope) {
         this.placementCanvas = canvas;
@@ -22,6 +23,9 @@ public class RootRouter {
     private void LoadingRouterOnLoaded() {
         loadingRouter.OnDetached();
         loadingRouter = null;
+
+        mainRouter = scope.MainScope().Router((RectTransform) placementCanvas.transform);
+        mainRouter.OnAttached();
     }
     
 }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1d2069e39b84e0e95b523d20ee355d, type: 3}
   m_Name: MainScopeData
   m_EditorClassIdentifier: 
+  screenTreePrefab: {fileID: 9210381050572140539, guid: 4b21fef968ad242e7a158badcb939353, type: 3}

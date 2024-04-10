@@ -4,6 +4,7 @@ using UnityEngine;
 public class RootScope : ScriptableObject {
     
     [SerializeField] private LoadingScope loadingScopeData;
+    [SerializeField] private MainScope mainScopeData;
 
     public RootRouter Router(Canvas mainCanvas) {
         return new RootRouter(mainCanvas, this);
@@ -11,6 +12,10 @@ public class RootScope : ScriptableObject {
 
     public LoadingScope LoadingScope() {
         return Instantiate(loadingScopeData);
+    }
+
+    public MainScope MainScope() {
+        return Instantiate(mainScopeData);
     }
 
 }
