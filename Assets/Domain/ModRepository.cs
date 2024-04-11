@@ -23,8 +23,8 @@ public class ModRepository {
         
         var mods = configObject["mods"]?.Values<JObject>().Select(modObject => new Mod {
             category = modObject["category"]?.Value<string>(),
-            previewPath = modObject["previewPath"]?.Value<string>(),
-            filePath = modObject["filePath"]?.Value<string>(),
+            previewPath = modObject["preview_path"]?.Value<string>(),
+            filePath = modObject["file_path"]?.Value<string>(),
             title = modObject["title"]?.Value<string>(),
             description = modObject["description"]?.Value<string>(),
         });
