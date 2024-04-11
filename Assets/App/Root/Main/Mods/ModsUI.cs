@@ -17,5 +17,9 @@ public class ModsUI {
     public void DeleteUIElements() {
         GameObject.Destroy(tree);
     }
+
+    public void SetCategories(string[] categories) {
+        tree.categoryBar.SetCategories(categories);
+    }
     
 }

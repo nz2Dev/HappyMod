@@ -762,11 +762,7 @@ MonoBehaviour:
   categoryPrefab: {fileID: 611945351389150190, guid: 6bfe260ecc8fa4e33996f9065e8ca9df, type: 3}
   unselectedStateSprite: {fileID: 21300000, guid: 8960854c7fccb413d83873e7593aa6df, type: 3}
   selectedStateSprite: {fileID: 21300000, guid: 5f3827984eefa46dfa40774c91320853, type: 3}
-  previewCategories:
-  - Category 1
-  - Category 2
-  - Category 3
-  - Category 4
+  previewCategories: []
 --- !u!1 &6213870634909229829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b06249db3b50411ea5ed3deefc0f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  categoryBar: {fileID: 8372854999974148265}
 --- !u!114 &3618449582875094167
 MonoBehaviour:
   m_ObjectHideFlags: 0

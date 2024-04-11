@@ -29,8 +29,8 @@ public class ModsInteractor {
         var modsTask = modRepository.GetModsConfig();
         yield return new WaitUntil(() => modsTask.IsCompleted);
 
-        foreach (var category in modsTask.Result.categories) {
-            Debug.Log("read category: " + category);
+        if (modsTask.IsCompletedSuccessfully) {
+            ui.SetCategories(modsTask.Result.categories);
         }
         
         foreach (var mod in modsTask.Result.mods) {
