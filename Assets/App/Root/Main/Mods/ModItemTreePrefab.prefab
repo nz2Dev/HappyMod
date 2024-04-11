@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc63a4e99d4d4e999cf1abc2b517cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previewImage: {fileID: 6318918041496031449}
   titleText: {fileID: 3571958000923546389}
   descriptionText: {fileID: 7402613183639478329}
 --- !u!222 &5563851589641626887

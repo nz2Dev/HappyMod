@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -33,9 +34,18 @@ public class ModsUI {
 
         foreach (var mod in mods) {
             var modItemTree = GameObject.Instantiate(modItemTreePrefab.gameObject, tree.modsRows.transform).GetComponent<ModItemTree>();
+            modItemTree.SetKey(mod.previewPath);
             modItemTree.SetTitle(mod.title);
             modItemTree.SetDescription(mod.description);
         }
     }
-    
+
+    public void SetModItemTexture(Mod mod, Texture2D texture) {
+        foreach (Transform rowElement in tree.modsRows.transform) {
+            var itemTree = rowElement.GetComponent<ModItemTree>();
+            if (mod.previewPath.Equals(itemTree.Key)) {
+                itemTree.SetPreviewTexture(texture);
+            }
+        }
+    }
 }
