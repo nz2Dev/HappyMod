@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using UnityEditor.SceneTemplate;
 using UnityEngine;
 
 public class LoadingUI {
