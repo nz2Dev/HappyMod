@@ -19,14 +19,6 @@ public class SafeAreaOffsets : MonoBehaviour {
         UpdateOffset();
     }
 
-#if UNITY_EDITOR
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            UpdateOffset();
-        }
-    }
-#endif
-
     private void UpdateOffset() {
         var rectTransform = (RectTransform) transform;
         var verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
@@ -42,12 +34,6 @@ public class SafeAreaOffsets : MonoBehaviour {
             }
 
             LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
-#if UNITY_EDITOR
-            Debug.Log("updating offset on " + (trueTopFalseBottom ? "top" : "bottom")
-                + " screen point based on safe area: " + screenPoint
-                + " local point in rect: " + localPointInRect
-                + " element: " + rectTransform.rect);
-#endif
         }
     }
 
