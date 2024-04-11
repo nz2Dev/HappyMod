@@ -4,22 +4,50 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SafeAreaOffsets : UIBehaviour {
+// This script assumes that in case of top offset:
+// - the pivot is in the top left corner (0, 1)
+// - after the layout, element is in the top most left corner of the screen
+// and in case of bottom offset:
+// - the pivot is in the bottom left corner (0, 0)
+// - after the layout, element is in the bottom most left corner of the screen 
+public class SafeAreaOffsets : MonoBehaviour {
     
     [SerializeField] private bool trueTopFalseBottom = false;
 
-    private VerticalLayoutGroup verticalLayoutGroup;
+    private IEnumerator Start() {
+        yield return null;
+        UpdateOffset();
+    }
 
-    protected override void Start() {
-        verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
+#if UNITY_EDITOR
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            UpdateOffset();
+        }
+    }
+#endif
+
+    private void UpdateOffset() {
         var rectTransform = (RectTransform) transform;
-        var safeAreaPixelVector = new Vector2(0, trueTopFalseBottom ? (Screen.height - Screen.safeArea.yMax) : Screen.safeArea.yMin);
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, safeAreaPixelVector, null, out var safeAreaRectVector)) {
+        var verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
+        
+        var screenPoint = new Vector2(0, trueTopFalseBottom ?  Screen.safeArea.yMax : Screen.safeArea.yMin);
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, null, out var localPointInRect)) {
             if (trueTopFalseBottom) {
-                verticalLayoutGroup.padding.top = (int) safeAreaRectVector.y;
+                verticalLayoutGroup.padding.top = (int) -localPointInRect.y;
+                verticalLayoutGroup.padding.bottom = 0;
             } else {
-                verticalLayoutGroup.padding.bottom = (int) safeAreaRectVector.y;
+                verticalLayoutGroup.padding.top = 0;
+                verticalLayoutGroup.padding.bottom = (int) localPointInRect.y;
             }
+
+            LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+#if UNITY_EDITOR
+            Debug.Log("updating offset on " + (trueTopFalseBottom ? "top" : "bottom")
+                + " screen point based on safe area: " + screenPoint
+                + " local point in rect: " + localPointInRect
+                + " element: " + rectTransform.rect);
+#endif
         }
     }
 
