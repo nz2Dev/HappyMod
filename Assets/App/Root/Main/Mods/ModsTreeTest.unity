@@ -960,7 +960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7890434492724461153, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7890434492724461153, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -969,6 +969,10 @@ PrefabInstance:
     - target: {fileID: 7936064869525302120, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
       propertyPath: m_Name
       value: ModsTreePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936064869525302120, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8239885215111414632, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
       propertyPath: m_AnchorMax.y

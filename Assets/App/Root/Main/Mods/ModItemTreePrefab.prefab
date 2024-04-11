@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6364329565755072001}
+  - component: {fileID: 3281227387704958927}
   - component: {fileID: 5563851589641626887}
   - component: {fileID: 1882029316919052748}
   - component: {fileID: 7017333625204334138}
   - component: {fileID: 3375512005969043015}
   m_Layer: 5
-  m_Name: ModItemTree
+  m_Name: ModItemTreePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +42,22 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 195, y: 422}
-  m_SizeDelta: {x: 390, y: 844}
+  m_SizeDelta: {x: 390, y: 287.77}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3281227387704958927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979129955039491789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc63a4e99d4d4e999cf1abc2b517cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 3571958000923546389}
+  descriptionText: {fileID: 7402613183639478329}
 --- !u!222 &5563851589641626887
 CanvasRenderer:
   m_ObjectHideFlags: 0

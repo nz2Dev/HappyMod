@@ -31,10 +31,7 @@ public class ModsInteractor {
 
         if (modsTask.IsCompletedSuccessfully) {
             ui.SetCategories(modsTask.Result.categories);
-        }
-        
-        foreach (var mod in modsTask.Result.mods) {
-            Debug.Log("read mod: " + mod.title);
+            ui.SetMods(modsTask.Result.mods);
         }
     }
     

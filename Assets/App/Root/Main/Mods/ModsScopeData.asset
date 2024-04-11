@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ModsScopeData
   m_EditorClassIdentifier: 
   modsTreePrefab: {fileID: 5102181088686335747, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
+  modItemTreePrefab: {fileID: 3281227387704958927, guid: 2902f2a9c8165487fa4ee167b05b00c5, type: 3}
