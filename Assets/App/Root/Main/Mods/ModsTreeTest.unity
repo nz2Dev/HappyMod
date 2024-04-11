@@ -544,7 +544,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7936064869525302120, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
       propertyPath: m_Name
-      value: ModsTree
+      value: ModsTreePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654506109207848321, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654506109207848321, guid: 2c9e4fb66ba564550889164f3faad76e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

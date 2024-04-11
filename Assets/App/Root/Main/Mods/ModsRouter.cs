@@ -3,20 +3,19 @@ using UnityEngine;
 public class ModsRouter {
 
     private readonly RectTransform placementSlot;
-    private readonly GameObject treePrefab;
+    private readonly ModsUI ui;
 
-    public ModsRouter(RectTransform placementSlot, GameObject treePrefab) {
+    public ModsRouter(RectTransform placementSlot, ModsUI ui) {
         this.placementSlot = placementSlot;
-        this.treePrefab = treePrefab;
+        this.ui = ui;
     }
 
-    private GameObject tree;
-
     public void OnAttached() {
-        tree = Object.Instantiate(treePrefab, placementSlot);
+        ui.SpawnUIElements(placementSlot);
     }
 
     public void OnDetached() {
-        Object.Destroy(tree);
+        ui.DeleteUIElements();
     }
+    
 }
