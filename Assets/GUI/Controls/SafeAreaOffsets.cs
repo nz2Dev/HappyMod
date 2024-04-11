@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BottomSafeArea : UIBehaviour {
+public class SafeAreaOffsets : UIBehaviour {
     
+    [SerializeField] private bool trueTopFalseBottom = false;
+
     private VerticalLayoutGroup verticalLayoutGroup;
 
     protected override void Start() {
         verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
         var rectTransform = (RectTransform) transform;
-        var safeAreaPixelVector = new Vector2(0, Screen.safeArea.yMin);
+        var safeAreaPixelVector = new Vector2(0, trueTopFalseBottom ? (Screen.height - Screen.safeArea.yMax) : Screen.safeArea.yMin);
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, safeAreaPixelVector, null, out var safeAreaRectVector)) {
-            verticalLayoutGroup.padding.bottom = (int) safeAreaRectVector.y;
+            if (trueTopFalseBottom) {
+                verticalLayoutGroup.padding.top = (int) safeAreaRectVector.y;
+            } else {
+                verticalLayoutGroup.padding.bottom = (int) safeAreaRectVector.y;
+            }
         }
     }
 
