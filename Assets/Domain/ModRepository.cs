@@ -16,7 +16,7 @@ public class ModRepository {
     }
 
     public async Task<ModsConfig> GetModsConfig() {
-        var cachedModsPath = Application.persistentDataPath + "/" + "mods.json";
+        var cachedModsPath = DropboxHelper.GetDownloadedFilePathInPersistentStorage("mods.json");
 
         using var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(cachedModsPath)));
         var configObject = await JObject.LoadAsync(jsonReader);

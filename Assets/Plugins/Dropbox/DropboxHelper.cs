@@ -152,5 +152,9 @@ namespace Plugins.Dropbox
                 Debug.Log("File saved to: " + filePath);
             }
         }
+
+        public static string GetDownloadedFilePathInPersistentStorage(string relativePathToFile) {
+            return Application.persistentDataPath + "/" + relativePathToFile;
+        }
     }
 }
