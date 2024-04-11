@@ -13,7 +13,7 @@ public class LoadingScope : ScriptableObject {
             placementSlot,
             servicePrefab,
             new LoadingUI(treePrefab),
-            new LoadingInteractor(),
+            new LoadingInteractor(new ModRepository()),
             this
         );
     }

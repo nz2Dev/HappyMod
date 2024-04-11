@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class LoadingInteractor {
 
+    private readonly ModRepository modRepository;
+
+    public LoadingInteractor(ModRepository modRepository) {
+        this.modRepository = modRepository;
+    }
+
     private LoadingUI ui;
     private LoadingRouter router;
     private MonoBehaviourService monoService;
@@ -20,25 +26,16 @@ public class LoadingInteractor {
     }
 
     private IEnumerator LoadConfigs() {
-        ui.SetLoadingProgress(0);
+        ui.SetLoadingProgress(0.1f);
 
-        var initTask = DropboxHelper.Initialize();
-        yield return new WaitUntil(() => initTask.IsCompleted);
-        if (initTask.IsCompletedSuccessfully) {
-            ui.SetLoadingProgress(0.1f);
+        var downloadingTask = modRepository.DownloadModsConfig();
+        yield return new WaitUntil(() => downloadingTask.IsCompleted);
 
-            var savingTask = DropboxHelper.DownloadAndSaveFile("mods.json");            
-            yield return new WaitForSeconds(0.1f);
-            while (!savingTask.IsCompleted) {
-                yield return new WaitForSeconds(0.1f);
-            }
-
-            if (savingTask.IsCompletedSuccessfully) {
-                ui.SetLoadingProgress(1f);
-                router.DispatchOnLoaded();
-            } else {
-                ui.SetLoadingProgress(0f);
-            }
+        if (downloadingTask.IsCompletedSuccessfully) {
+            ui.SetLoadingProgress(1f);
+            router.DispatchOnLoaded();
+        } else {
+            ui.SetLoadingProgress(0f);
         }
     }
 
