@@ -4,21 +4,28 @@ using System.Linq;
 using UnityEngine;
 
 public class ModsInteractor {
+
+    private readonly ModRepository modRepository;
+
+    public ModsInteractor(ModRepository modRepository) {
+        this.modRepository = modRepository;
+    }
+
     private ModsUI ui;
     private ModsRouter router;
+    private MonoBehaviourService monoService;
 
-    public void SetComponents(ModsUI ui, ModsRouter router) {
+    public void SetComponents(ModsUI ui, ModsRouter router, MonoBehaviourService monoService) {
         this.ui = ui;
         this.router = router;
+        this.monoService = monoService;
     }
 
     public void Activate() {
-        var monoService = new GameObject().AddComponent<MonoBehaviourService>();
         monoService.StartCoroutine(LoadConfigs());
     }
 
     private IEnumerator LoadConfigs() {
-        var modRepository = new ModRepository();
         var modsTask = modRepository.GetModsConfig();
         yield return new WaitUntil(() => modsTask.IsCompleted);
 

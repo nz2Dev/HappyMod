@@ -9,7 +9,8 @@ public class ModsScope : ScriptableObject {
         return new ModsRouter(
             placementSlot,
             new ModsUI(modsTreePrefab),
-            new ModsInteractor()
+            new ModsInteractor(new ModRepository())
         );
     }
+    
 }
