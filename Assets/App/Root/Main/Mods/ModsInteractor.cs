@@ -27,6 +27,11 @@ public class ModsInteractor {
         this.monoService = monoService;
 
         ui.OnItemDownloadButtonClicked += UIOnItemDonwloadButtonClicked;
+        ui.OnSearchBarInputChanged += UIOnSearchBarInputChanged;
+    }
+
+    private void UIOnSearchBarInputChanged(string newInput) {
+        Debug.Log("new search bar input: " + newInput);
     }
 
     private void UIOnItemDonwloadButtonClicked(string itemKey) {
