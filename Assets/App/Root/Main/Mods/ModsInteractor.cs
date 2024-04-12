@@ -129,6 +129,9 @@ public class ModsInteractor {
 
             var downloadTask = DropboxHelper.DownloadAndSaveFile(imageRelativePath); 
             yield return new WaitUntil(() => downloadTask.IsCompleted);
+            if (!downloadTask.IsCompletedSuccessfully) {
+                continue;
+            }
 
             var imageFilePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(imageRelativePath);
             var readingTask = File.ReadAllBytesAsync(imageFilePath);
