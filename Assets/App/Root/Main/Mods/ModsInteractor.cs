@@ -12,7 +12,7 @@ public class ModsInteractor {
 
     private Dictionary<string, ModItem> modDictionary = new();
     private string filterString = "";
-    private string filterCategory;
+    private string filterCategory = "";
     private bool filterIsDirty;
 
     public ModsInteractor(ModRepository modRepository) {
@@ -59,7 +59,7 @@ public class ModsInteractor {
                 filterIsDirty = false;
 
                 var filteredItems = modDictionary.Values
-                    .Where(modItem => modItem.Data.category.Equals(filterCategory))
+                    .Where(modItem => modItem.Data.category.Contains(filterCategory, StringComparison.OrdinalIgnoreCase))
                     .Where(modItem => modItem.Data.title.Contains(filterString, StringComparison.OrdinalIgnoreCase))
                     .ToArray();
                 
@@ -98,7 +98,7 @@ public class ModsInteractor {
             
             ui.SetModItems(allItemsArray);
             ui.SetNoResultMessageDisplay(allItemsArray.Length == 0);
-            
+
             yield return LoadCachedPreviews(allItemsArray);
             yield return ReDownloadPreviews(allItemsArray);
         }
