@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using Plugins.Dropbox;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class ModsInteractor {
 
@@ -95,21 +94,48 @@ public class ModsInteractor {
             modDictionary = modsTask.Result.mods.Select(mod => new ModItem(mod)).ToDictionary(item => item.Key);
             ui.SetModItems(modDictionary.Values);
 
-            foreach (var modItem in modDictionary.Values.ToArray()) {
-                var imageRelativePath = modItem.Data.previewPath[1..];
-                var downloadTask = DropboxHelper.DownloadAndSaveFile(imageRelativePath); 
-                yield return new WaitUntil(() => downloadTask.IsCompleted);
+            var itemsArray = modDictionary.Values.ToArray();
+            yield return LoadCachedPreviews(itemsArray);
+            yield return ReDownloadPreviews(itemsArray);
+        }
+    }
 
-                var imagePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(imageRelativePath);
-                var readingTask = File.ReadAllBytesAsync(imagePath);
-                yield return new WaitUntil(() => readingTask.IsCompleted);
+    private IEnumerator LoadCachedPreviews(ModItem[] itemaArray) {
+        foreach (var modItem in itemaArray) {
+            var imageRelativePath = modItem.Data.previewPath[1..];
+            var imageFilePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(imageRelativePath);
+            
+            if (File.Exists(imageFilePath)) {
+                var cacheReadingTask = File.ReadAllBytesAsync(imageFilePath);
+                yield return new WaitUntil(() => cacheReadingTask.IsCompleted);    
 
-                var texture = new Texture2D(2, 2);
-                texture.LoadImage(readingTask.Result);
-                modItem.PreviewImage = texture;
-                
+                var cachedTexture = new Texture2D(2, 2);
+                cachedTexture.LoadImage(cacheReadingTask.Result);
+                modItem.PreviewImage = cachedTexture;
                 ui.UpdateModItem(modItem);
             }
+        }
+    }
+
+    private IEnumerator ReDownloadPreviews(ModItem[] itemsArray) {
+        foreach (var modItem in itemsArray) {
+            var imageRelativePath = modItem.Data.previewPath[1..];
+
+            var downloadTask = DropboxHelper.DownloadAndSaveFile(imageRelativePath); 
+            yield return new WaitUntil(() => downloadTask.IsCompleted);
+
+            var imageFilePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(imageRelativePath);
+            var readingTask = File.ReadAllBytesAsync(imageFilePath);
+            yield return new WaitUntil(() => readingTask.IsCompleted);
+
+            var texture = modItem.PreviewImage;
+            if (texture == null) {
+                texture = new Texture2D(2, 2);
+            }
+
+            texture.LoadImage(readingTask.Result);
+            modItem.PreviewImage = texture;
+            ui.UpdateModItem(modItem);
         }
     }
     
