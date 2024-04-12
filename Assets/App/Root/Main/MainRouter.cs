@@ -34,12 +34,13 @@ public class MainRouter {
             modsRouter = scope.ModsScope().Router(ui.ContentContainer);
             modsRouter.OnAttached();
         }
+
+        modsRouter.OnResumed();
     }
 
     public void AttachPlaceholder() {
         if (modsRouter != null) {
-            modsRouter.OnDetached();
-            modsRouter = null;
+            modsRouter.OnPaused();
         }
 
         if (placeholderTree == null) {

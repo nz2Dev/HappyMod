@@ -26,6 +26,14 @@ public class ModsUI {
         tree.categoryBar.OnCategorySelectionChanged += (category) => OnCategoryBarSelectionChanged?.Invoke(category);
     }
 
+    public void Show() {
+        tree.gameObject.SetActive(true);
+    }
+
+    public void Hide() {
+        tree.gameObject.SetActive(false);
+    }
+
     public void DeleteUIElements() {
         GameObject.Destroy(tree.gameObject);
     }
@@ -62,4 +70,5 @@ public class ModsUI {
             }
         }
     }
+
 }

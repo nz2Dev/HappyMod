@@ -22,6 +22,14 @@ public class ModsRouter {
         interactor.Activate();
     }
 
+    public void OnResumed() {
+        ui.Show();
+    }
+
+    public void OnPaused() {
+        ui.Hide();
+    }
+
     public void OnDetached() {
         GameObject.Destroy(monoService.gameObject);
         ui.DeleteUIElements();
