@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class ModsUI {
     
     private readonly ModsTree modsTreePrefab;
     private readonly ModItemTree modItemTreePrefab;
+    private readonly AlertControl alertControlPrefab;
 
     private ModsTree tree;
 
@@ -15,9 +17,10 @@ public class ModsUI {
     public event Action<string> OnSearchBarInputChanged;
     public event Action<string> OnCategoryBarSelectionChanged;
 
-    public ModsUI(ModsTree modsTreePrefab, ModItemTree modItemTreePrefab) {
+    public ModsUI(ModsTree modsTreePrefab, ModItemTree modItemTreePrefab, AlertControl alertControlPrefab) {
         this.modsTreePrefab = modsTreePrefab;
         this.modItemTreePrefab = modItemTreePrefab;
+        this.alertControlPrefab = alertControlPrefab;
     }
 
     public void SpawnUIElements(RectTransform placementSlot) {
@@ -36,6 +39,34 @@ public class ModsUI {
 
     public void DeleteUIElements() {
         GameObject.Destroy(tree.gameObject);
+        HideAlertInternal();
+    }
+
+    private AlertControl currentAlert;
+
+    public void ShowAlert(string title = null, string message = null, string button = null, Action onClosed = null) {
+        Assert.IsNull(currentAlert);
+
+        var treeCanvas = tree.GetComponentInParent<Canvas>();
+        currentAlert = GameObject.Instantiate(alertControlPrefab.gameObject, treeCanvas.transform).GetComponent<AlertControl>();
+        currentAlert.SetTitle(title);
+        currentAlert.SetMessage(message);
+        currentAlert.SetButton(button);
+        currentAlert.OnButtonClick += () => {
+            onClosed?.Invoke();
+            HideAlertInternal();
+        };
+        currentAlert.OnOutsideBoxClick += () => {
+            onClosed?.Invoke();
+            HideAlertInternal();
+        };
+    }
+
+    private void HideAlertInternal() {
+        if (currentAlert != null) {
+            GameObject.Destroy(currentAlert.gameObject);
+            currentAlert = null;
+        }
     }
 
     public void SetCategories(string[] categories) {

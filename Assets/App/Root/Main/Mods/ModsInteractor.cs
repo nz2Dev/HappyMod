@@ -141,6 +141,8 @@ public class ModsInteractor {
             modItem.PreviewImage = texture;
             ui.UpdateModItem(modItem);
         }
+
+        ui.ShowAlert("Preview Download Finished");
     }
     
 }
