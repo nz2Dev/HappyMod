@@ -14,11 +14,13 @@ public class SearchBar : MonoBehaviour {
 
     private void Start() {
         closeButton.onClick.AddListener(CloseButtonOnClick);
+        closeButton.gameObject.SetActive(false);
         inputField.onValueChanged.AddListener(InputFieldOnValueChanged);
     }
 
     private void InputFieldOnValueChanged(string newValue) {
         OnInputChanged?.Invoke(newValue);
+        closeButton.gameObject.SetActive(!string.IsNullOrEmpty(newValue));
     }
 
     private void CloseButtonOnClick() {
