@@ -9,6 +9,7 @@ public class ModItemTree : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button downloadButton;
+    [SerializeField] private RectTransform progressBar;
 
     private string key;
 
@@ -38,5 +39,10 @@ public class ModItemTree : MonoBehaviour {
         } else {
             previewImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
         }
+    }
+
+    public void SetDownloadingState(bool downloading) {
+        downloadButton.gameObject.SetActive(!downloading);
+        progressBar.gameObject.SetActive(downloading);
     }
 }

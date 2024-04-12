@@ -42,6 +42,7 @@ public class ModsUI {
             modItemTree.SetTitle(modItem.Data.title);
             modItemTree.SetDescription(modItem.Data.description);
             modItemTree.SetPreviewTexture(modItem.PreviewImage);
+            modItemTree.SetDownloadingState(modItem.DownloadingProgress);
             modItemTree.OnDownloadClick += (key) => OnItemDownloadButtonClicked?.Invoke(key);
         }
     }
@@ -53,6 +54,7 @@ public class ModsUI {
                 modItemTree.SetTitle(modItem.Data.title);
                 modItemTree.SetDescription(modItem.Data.description);
                 modItemTree.SetPreviewTexture(modItem.PreviewImage);
+                modItemTree.SetDownloadingState(modItem.DownloadingProgress);
             }
         }
     }
