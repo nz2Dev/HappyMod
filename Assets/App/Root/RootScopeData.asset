@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScopeData: {fileID: 11400000, guid: 5942d07a61287477eb67eb3ad73bdeb8, type: 2}
   mainScopeData: {fileID: 11400000, guid: cf1c3bc47a5f246d3b3727b7a39c22e2, type: 2}
+  alertControlPrefab: {fileID: 8192646139625887084, guid: 777cb9d0b62c546b9b70458821b59787, type: 3}
