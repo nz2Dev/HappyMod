@@ -11,7 +11,7 @@ public class ModsUI {
 
     private ModsTree tree;
 
-    public event Action OnItemDownloadButtonClicked;
+    public event Action<string> OnItemDownloadButtonClicked;
 
     public ModsUI(ModsTree modsTreePrefab, ModItemTree modItemTreePrefab) {
         this.modsTreePrefab = modsTreePrefab;
@@ -42,6 +42,7 @@ public class ModsUI {
             modItemTree.SetTitle(modItem.Data.title);
             modItemTree.SetDescription(modItem.Data.description);
             modItemTree.SetPreviewTexture(modItem.PreviewImage);
+            modItemTree.OnDownloadClick += (key) => OnItemDownloadButtonClicked?.Invoke(key);
         }
     }
 

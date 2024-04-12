@@ -59,6 +59,7 @@ MonoBehaviour:
   previewImage: {fileID: 6318918041496031449}
   titleText: {fileID: 3571958000923546389}
   descriptionText: {fileID: 7402613183639478329}
+  downloadButton: {fileID: 6915651965317051729}
 --- !u!222 &5563851589641626887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -461,7 +462,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Download
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

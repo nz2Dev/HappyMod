@@ -25,10 +25,33 @@ public class ModsInteractor {
         this.ui = ui;
         this.router = router;
         this.monoService = monoService;
+
+        ui.OnItemDownloadButtonClicked += UIOnItemDonwloadButtonClicked;
+    }
+
+    private void UIOnItemDonwloadButtonClicked(string itemKey) {
+        monoService.StartCoroutine(DownloadModFile(itemKey));
     }
 
     public void Activate() {
         monoService.StartCoroutine(LoadConfigs());
+    }
+
+    private IEnumerator DownloadModFile(string itemKey) {
+        var modItem = modDictionary[itemKey];
+        modItem.DownloadingProgress = true;
+        ui.UpdateModItem(modItem);
+
+        var fileRelativePath = modItem.Data.filePath[1..];
+        var downloadTask = DropboxHelper.DownloadAndSaveFile(fileRelativePath);   
+        yield return new WaitUntil(() => downloadTask.IsCompleted);
+        modItem.DownloadingProgress = false;
+        ui.UpdateModItem(modItem);
+
+        if (downloadTask.IsCompletedSuccessfully) {
+            var filePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(fileRelativePath);
+            router.AttachShareFile(filePath);
+        }
     }
 
     private IEnumerator LoadConfigs() {

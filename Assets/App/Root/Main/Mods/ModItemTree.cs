@@ -8,10 +8,17 @@ public class ModItemTree : MonoBehaviour {
     [SerializeField] private Image previewImage;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private Button downloadButton;
 
     private string key;
 
     public string Key => key;
+
+    public event Action<string> OnDownloadClick;
+
+    private void Start() {
+        downloadButton.onClick.AddListener(() => OnDownloadClick?.Invoke(key));
+    }
 
     public void SetKey(string key) {
         this.key = key;
