@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ModItemTree : MonoBehaviour {
     
     [SerializeField] private Image previewImage;
+    [SerializeField] private RectTransform previewProgressBar;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button downloadButton;
@@ -34,9 +35,10 @@ public class ModItemTree : MonoBehaviour {
     }
 
     public void SetPreviewTexture(Texture2D texture) {
-        if (texture == null) {
-            previewImage.sprite = null;
-        } else {
+        previewImage.gameObject.SetActive(texture != null);
+        previewProgressBar.gameObject.SetActive(texture == null);
+        
+        if (texture != null) {
             previewImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
         }
     }
