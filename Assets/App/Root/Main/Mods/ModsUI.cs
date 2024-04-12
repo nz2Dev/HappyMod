@@ -45,7 +45,7 @@ public class ModsUI {
     private AlertControl currentAlert;
 
     public void ShowAlert(string title = null, string message = null, string button = null, Action onClosed = null) {
-        Assert.IsNull(currentAlert);
+        HideAlertInternal();
 
         var treeCanvas = tree.GetComponentInParent<Canvas>();
         currentAlert = GameObject.Instantiate(alertControlPrefab.gameObject, treeCanvas.transform).GetComponent<AlertControl>();
