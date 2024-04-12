@@ -83,6 +83,8 @@ public class ModsInteractor {
         if (downloadTask.IsCompletedSuccessfully) {
             var filePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(fileRelativePath);
             new NativeShare().AddFile(filePath).Share();
+        } else {
+            ui.ShowAlert("Download Failed");
         }
     }
 
@@ -141,8 +143,6 @@ public class ModsInteractor {
             modItem.PreviewImage = texture;
             ui.UpdateModItem(modItem);
         }
-
-        ui.ShowAlert("Preview Download Finished");
     }
     
 }
