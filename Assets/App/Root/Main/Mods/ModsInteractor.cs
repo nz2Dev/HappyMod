@@ -12,6 +12,8 @@ public class ModsInteractor {
     private readonly ModRepository modRepository;
 
     private Dictionary<string, ModItem> modDictionary = new();
+    private string filterString = "";
+    private bool filterIsDirty;
 
     public ModsInteractor(ModRepository modRepository) {
         this.modRepository = modRepository;
@@ -31,7 +33,8 @@ public class ModsInteractor {
     }
 
     private void UIOnSearchBarInputChanged(string newInput) {
-        Debug.Log("new search bar input: " + newInput);
+        filterString = newInput;
+        filterIsDirty = true;
     }
 
     private void UIOnItemDonwloadButtonClicked(string itemKey) {
@@ -40,6 +43,21 @@ public class ModsInteractor {
 
     public void Activate() {
         monoService.StartCoroutine(LoadConfigs());
+        monoService.StartCoroutine(FilterChangesListener());
+    }
+
+    private IEnumerator FilterChangesListener() {
+        while (true) {
+            yield return new WaitForSecondsRealtime(0.2f);
+            if (filterIsDirty) {
+                filterIsDirty = false;
+
+                var filteredItems = modDictionary.Values
+                    .Where(modItem => modItem.Data.title.Contains(filterString, StringComparison.OrdinalIgnoreCase));
+
+                ui.SetModItems(filteredItems);
+            }
+        }
     }
 
     private IEnumerator DownloadModFile(string itemKey) {
