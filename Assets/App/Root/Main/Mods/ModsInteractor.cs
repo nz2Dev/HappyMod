@@ -50,7 +50,7 @@ public class ModsInteractor {
 
         if (downloadTask.IsCompletedSuccessfully) {
             var filePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(fileRelativePath);
-            router.AttachShareFile(filePath);
+            new NativeShare().AddFile(filePath).Share();
         }
     }
 

@@ -27,7 +27,4 @@ public class ModsRouter {
         ui.DeleteUIElements();
     }
 
-    public void AttachShareFile(string filePath) {
-        throw new NotImplementedException();
-    }
 }
