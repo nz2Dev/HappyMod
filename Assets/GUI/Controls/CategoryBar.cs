@@ -19,7 +19,7 @@ public class CategoryBar : MonoBehaviour {
         "Category 3"
     };
     
-    public event Action<string> OnCategoryClick;
+    public event Action<string> OnCategorySelectionChanged;
 
     private void Start() {
         SetCategories(previewCategories);
@@ -35,13 +35,17 @@ public class CategoryBar : MonoBehaviour {
             var categoryElement = Instantiate(categoryPrefab.gameObject, transform).GetComponent<CategoryBarElement>();
             categoryElement.SetCategory(category);
             categoryElement.OnClicked += (element) => {
-                OnCategoryClick?.Invoke(element.CategoryName);
                 SetSelectedCategory(element.CategoryName);
             };
         }
     }
 
-    public void SetSelectedCategory(string category) {
+    private void SetSelectedCategory(string category) {
+        UpdateSelectionState(category);
+        OnCategorySelectionChanged?.Invoke(category);
+    }
+
+    private void UpdateSelectionState(string category) {
         foreach (Transform child in transform) {
             var categoryElement = child.GetComponent<CategoryBarElement>();
             if (category.Equals(categoryElement.CategoryName)) {

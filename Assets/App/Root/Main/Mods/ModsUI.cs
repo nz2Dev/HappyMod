@@ -13,6 +13,7 @@ public class ModsUI {
 
     public event Action<string> OnItemDownloadButtonClicked;
     public event Action<string> OnSearchBarInputChanged;
+    public event Action<string> OnCategoryBarSelectionChanged;
 
     public ModsUI(ModsTree modsTreePrefab, ModItemTree modItemTreePrefab) {
         this.modsTreePrefab = modsTreePrefab;
@@ -22,6 +23,7 @@ public class ModsUI {
     public void SpawnUIElements(RectTransform placementSlot) {
         tree = GameObject.Instantiate(modsTreePrefab.gameObject, placementSlot).GetComponent<ModsTree>();
         tree.searchBar.OnInputChanged += (newValue) => OnSearchBarInputChanged?.Invoke(newValue);
+        tree.categoryBar.OnCategorySelectionChanged += (category) => OnCategoryBarSelectionChanged?.Invoke(category);
     }
 
     public void DeleteUIElements() {

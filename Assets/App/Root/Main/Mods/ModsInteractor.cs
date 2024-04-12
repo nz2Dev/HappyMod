@@ -13,6 +13,7 @@ public class ModsInteractor {
 
     private Dictionary<string, ModItem> modDictionary = new();
     private string filterString = "";
+    private string filterCategory;
     private bool filterIsDirty;
 
     public ModsInteractor(ModRepository modRepository) {
@@ -30,6 +31,12 @@ public class ModsInteractor {
 
         ui.OnItemDownloadButtonClicked += UIOnItemDonwloadButtonClicked;
         ui.OnSearchBarInputChanged += UIOnSearchBarInputChanged;
+        ui.OnCategoryBarSelectionChanged += UIOnCategoryBarSelectionChanged;
+    }
+
+    private void UIOnCategoryBarSelectionChanged(string newSelectedCategory) {
+        filterCategory = newSelectedCategory;
+        filterIsDirty = true;
     }
 
     private void UIOnSearchBarInputChanged(string newInput) {
@@ -53,6 +60,7 @@ public class ModsInteractor {
                 filterIsDirty = false;
 
                 var filteredItems = modDictionary.Values
+                    .Where(modItem => modItem.Data.category.Equals(filterCategory))
                     .Where(modItem => modItem.Data.title.Contains(filterString, StringComparison.OrdinalIgnoreCase));
 
                 ui.SetModItems(filteredItems);
