@@ -60,9 +60,11 @@ public class ModsInteractor {
 
                 var filteredItems = modDictionary.Values
                     .Where(modItem => modItem.Data.category.Equals(filterCategory))
-                    .Where(modItem => modItem.Data.title.Contains(filterString, StringComparison.OrdinalIgnoreCase));
-
+                    .Where(modItem => modItem.Data.title.Contains(filterString, StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
+                
                 ui.SetModItems(filteredItems);
+                ui.SetNoResultMessageDisplay(filteredItems.Length == 0);
             }
         }
     }
@@ -92,11 +94,13 @@ public class ModsInteractor {
             ui.SetCategories(modsTask.Result.categories);
 
             modDictionary = modsTask.Result.mods.Select(mod => new ModItem(mod)).ToDictionary(item => item.Key);
-            ui.SetModItems(modDictionary.Values);
-
-            var itemsArray = modDictionary.Values.ToArray();
-            yield return LoadCachedPreviews(itemsArray);
-            yield return ReDownloadPreviews(itemsArray);
+            var allItemsArray = modDictionary.Values.ToArray();
+            
+            ui.SetModItems(allItemsArray);
+            ui.SetNoResultMessageDisplay(allItemsArray.Length == 0);
+            
+            yield return LoadCachedPreviews(allItemsArray);
+            yield return ReDownloadPreviews(allItemsArray);
         }
     }
 

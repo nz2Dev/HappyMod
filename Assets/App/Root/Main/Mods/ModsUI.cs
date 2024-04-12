@@ -42,7 +42,11 @@ public class ModsUI {
         tree.categoryBar.SetCategories(categories);
     }
 
-    public void SetModItems(IEnumerable<ModItem> modItems) {
+    public void SetNoResultMessageDisplay(bool display) {
+        tree.noResultMessage.gameObject.SetActive(display);
+    }
+
+    public void SetModItems(ModItem[] modItems) {
         var rowsChilds = tree.modsRows.transform.Cast<Transform>().ToArray();
         foreach (var rowChild in rowsChilds) {
             GameObject.Destroy(rowChild.gameObject);
