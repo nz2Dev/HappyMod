@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Plugins.Dropbox;
@@ -9,6 +10,8 @@ using UnityEngine.Networking;
 public class ModsInteractor {
 
     private readonly ModRepository modRepository;
+
+    private Dictionary<string, ModItem> modDictionary = new();
 
     public ModsInteractor(ModRepository modRepository) {
         this.modRepository = modRepository;
@@ -34,21 +37,24 @@ public class ModsInteractor {
 
         if (modsTask.IsCompletedSuccessfully) {
             ui.SetCategories(modsTask.Result.categories);
-            ui.SetMods(modsTask.Result.mods);
 
-            foreach (var mod in modsTask.Result.mods) {
-                var path = mod.previewPath[1..];
-                var downloadTask = DropboxHelper.DownloadAndSaveFile(path); 
+            modDictionary = modsTask.Result.mods.Select(mod => new ModItem(mod)).ToDictionary(item => item.Key);
+            ui.SetModItems(modDictionary.Values);
+
+            foreach (var modItem in modDictionary.Values.ToArray()) {
+                var imageRelativePath = modItem.Data.previewPath[1..];
+                var downloadTask = DropboxHelper.DownloadAndSaveFile(imageRelativePath); 
                 yield return new WaitUntil(() => downloadTask.IsCompleted);
 
-                var imagePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(path);
+                var imagePath = DropboxHelper.GetDownloadedFilePathInPersistentStorage(imageRelativePath);
                 var readingTask = File.ReadAllBytesAsync(imagePath);
                 yield return new WaitUntil(() => readingTask.IsCompleted);
 
                 var texture = new Texture2D(2, 2);
                 texture.LoadImage(readingTask.Result);
+                modItem.PreviewImage = texture;
                 
-                ui.SetModItemTexture(mod, texture);
+                ui.UpdateModItem(modItem);
             }
         }
     }

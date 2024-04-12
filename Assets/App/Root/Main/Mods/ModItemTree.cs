@@ -26,6 +26,10 @@ public class ModItemTree : MonoBehaviour {
     }
 
     public void SetPreviewTexture(Texture2D texture) {
-        previewImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
+        if (texture == null) {
+            previewImage.sprite = null;
+        } else {
+            previewImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
+        }
     }
 }

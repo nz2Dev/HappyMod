@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +10,8 @@ public class ModsUI {
     private readonly ModItemTree modItemTreePrefab;
 
     private ModsTree tree;
+
+    public event Action OnItemDownloadButtonClicked;
 
     public ModsUI(ModsTree modsTreePrefab, ModItemTree modItemTreePrefab) {
         this.modsTreePrefab = modsTreePrefab;
@@ -26,25 +30,28 @@ public class ModsUI {
         tree.categoryBar.SetCategories(categories);
     }
 
-    public void SetMods(Mod[] mods) {
+    public void SetModItems(IEnumerable<ModItem> modItems) {
         var rowsChilds = tree.modsRows.transform.Cast<Transform>().ToArray();
         foreach (var rowChild in rowsChilds) {
             GameObject.Destroy(rowChild.gameObject);
         }
 
-        foreach (var mod in mods) {
+        foreach (var modItem in modItems) {
             var modItemTree = GameObject.Instantiate(modItemTreePrefab.gameObject, tree.modsRows.transform).GetComponent<ModItemTree>();
-            modItemTree.SetKey(mod.previewPath);
-            modItemTree.SetTitle(mod.title);
-            modItemTree.SetDescription(mod.description);
+            modItemTree.SetKey(modItem.Key);
+            modItemTree.SetTitle(modItem.Data.title);
+            modItemTree.SetDescription(modItem.Data.description);
+            modItemTree.SetPreviewTexture(modItem.PreviewImage);
         }
     }
 
-    public void SetModItemTexture(Mod mod, Texture2D texture) {
+    public void UpdateModItem(ModItem modItem) {
         foreach (Transform rowElement in tree.modsRows.transform) {
-            var itemTree = rowElement.GetComponent<ModItemTree>();
-            if (mod.previewPath.Equals(itemTree.Key)) {
-                itemTree.SetPreviewTexture(texture);
+            var modItemTree = rowElement.GetComponent<ModItemTree>();
+            if (modItem.Key.Equals(modItemTree.Key)) {
+                modItemTree.SetTitle(modItem.Data.title);
+                modItemTree.SetDescription(modItem.Data.description);
+                modItemTree.SetPreviewTexture(modItem.PreviewImage);
             }
         }
     }
